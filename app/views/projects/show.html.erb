@@ -1,0 +1,28 @@
+ <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<%= render 'shared/page_title', title: @project.name %>
+
+<div class="well col-md-8 col-md-offset-2">
+  <%# <h4 class="center description"><strong>Steps: </strong></h4> %>
+  <%= simple_format(@project.description) %>
+  <hr />
+  <div class="pull-right">
+    <p class="center">
+      <em>Created by:</em>
+    </p>
+    <p class="center">
+      <small><%= @project.user.name.capitalize %></small>
+      <div class="pull-right"><%= time_ago_in_words(@project.created_at) %> ago</div>
+    </p>
+  </div>
+    <hr />
+    <div class="pull-left">
+    <%= link_to "Back", projects_path, class: "btn btn-primary btn-xs btn-xlarge" %>
+    <%= link_to "Edit", edit_project_path(@project), class: "btn btn-warning btn-xs btn-xlarge" %>
+    <%= button_to "Delete", project_path(@project),method: :delete,data: { confirm: "Are you sure you want to delete this project?" },class: "btn btn-xs btn-danger" %>
+    </div>
+
+</div>

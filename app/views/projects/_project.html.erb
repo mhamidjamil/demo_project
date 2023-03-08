@@ -1,0 +1,33 @@
+<% obj.each do |project| %>
+
+  <div class="row">
+
+    <div class="col-md-8 well">
+
+        <h4><%= link_to project.name, project_path(project) %></h4>
+        <p><%= truncate(project.description, length: 150) %></p>
+        
+        <% if project.bugs.any? %>
+            <p>
+            Bugs: 
+            <%#= TODO: fix it after creating bug routes %>
+            <%#= FIXME: render project.bugs %>
+            </p>
+        <% end %>
+
+        <p>
+            <span class="quiet">
+            <small>Created 
+                <%= time_ago_in_words(project.created_at) %> ago by <%= project.user.name.capitalize %> | 
+                <%= pluralize(project.bugs.count, 'bugs') %>
+            </small>
+            </span>
+        </p>  
+        <%= link_to "Edit this project",edit_project_path(project),class: "btn btn-xs btn-warning" %>
+        <%= link_to "Delete this project", project_path(project),method: :delete,  data: { confirm: "Are you sure you want to delete this project?" },class: "btn btn-xs btn-danger" %>
+
+        </div>
+        
+        <hr />
+    </div>
+<% end %>

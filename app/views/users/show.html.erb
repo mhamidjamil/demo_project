@@ -1,0 +1,13 @@
+
+<% if @user.projects.count != 0 %>
+
+    <h4 align="center">
+        <%= @user.name %>'s Projects
+    </h4>
+
+    <%= render 'projects/project', obj: @user.projects %>
+
+
+<% else %>
+  <h4 align="center">No Project yet!</h4>
+<% end %>
