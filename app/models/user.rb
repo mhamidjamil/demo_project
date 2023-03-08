@@ -5,5 +5,6 @@ class User < ApplicationRecord
     default_scope -> { order(updated_at: :desc)}
     enum :role, [ :developer, :qa, :manager ]
     has_secure_password
+    
     has_many :projects, dependent: :destroy
 end

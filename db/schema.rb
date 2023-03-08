@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_145656) do
     t.string "title"
     t.text "description"
     t.datetime "deadline"
-    t.boolean "btype", default: false
+    t.integer "btype", default: 1
     t.string "image"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
