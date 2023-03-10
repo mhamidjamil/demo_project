@@ -1,9 +1,10 @@
-class Dev < ApplicationRecord
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
     enum :role, [ :developer, :qa, :manager ]
     has_many :projects, dependent: :destroy

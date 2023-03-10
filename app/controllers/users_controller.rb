@@ -1,16 +1,16 @@
-class DevsController < ApplicationController
-    before_action :set_user, only: [:edit, :update, :show, :destroy]
+class UsersController < ApplicationController
+    before_action :set_user, only: [:edit, :update, :show]
 
     def index
-        @users = Dev.all
+        @users = User.all
     end
 
     def new
-        @user = Dev.new
+        @user = User.new
     end
     
     def create
-        @user = Dev.new(user_params)
+        @user = User.new(user_params)
         if @user.save
             session[:user_id] = @user.id
             flash[:success] = "Welcome #{@user.name} to Demo Project!"
@@ -38,10 +38,13 @@ class DevsController < ApplicationController
     
     def destroy
     # if !@user.admin?
-        @user.destroy 
-        flash[:danger] = "Dev and all associated Projects have been deleted"
-        redirect_to users_path
-    # end
+        if user_signed_in? 
+            @user.destroy 
+            flash[:danger] = "User and all associated Projects have been deleted"
+            redirect_to users_path
+        else
+            flash[:danger] = "You need to sign in first"
+        end
     end
 
     private
@@ -51,7 +54,7 @@ class DevsController < ApplicationController
     end
     
     def set_user
-        @user = Dev.find(params[:id])
+        @user = User.find(params[:id])
     end
     
     # def require_same_user

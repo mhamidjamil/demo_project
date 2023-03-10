@@ -5,13 +5,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <%= render 'shared/errors', obj: @bug %>
+<%if current_user.manager?%>
 
+<%#if @bug.projects[0].user.manager? %>
+    <h3 align="center">
+        Only QA can create bugs or features
+    </h3>
+<%else%>
 <div class="row">
   <div class="col-md-12">
 
     <%= form_for(@bug, :html => {class: "form-horizontal", role: "form"}) do |f| %>
       <div class="form-group">
-
+    <%if current_user.qa?%>
     <%# bug title %>
         <div class="control-label col-md-2">
             <%= f.label :title %>
@@ -40,13 +46,18 @@
                 <option value="bug">bug</option>
             </select>
             <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>            
-
+            <%end%>
          <%#= f.input :date, as: :datetime, label:'Launch Date & Time', class: "form-control form-control-lg", input_html: {value: params[:start_date]}, wrapper_html: { class: 'mb-3' }, html5: true %>
-        <div class="field">
-        <%# f.label :time %>
-        <%# f.datetime_select :time %>
-        <%#= f.deadline:time, :value => timesheet.user, :readonly => true %>
-        </div>
+            <select id="bug_status" name="bug[status]">
+                <option value=0>new</option>
+                <option value=1>started</option>
+                <%if @bug.btype == 1%>
+                    <option value=2>completed</option>
+                <%else%>
+                    <option value=2>end</option>
+                <%end%>
+            </select>
+            <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>   
         
         <%# end %>
     <%#datetime from user %>
@@ -59,7 +70,7 @@
             </div>
         </div>
         
-
+    <hr/>
       <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <%= f.submit(@bug.new_record? ? "Add Bug" : "Update Bug",class: "btn btn-primary btn-lg btn-xlarge") %>
@@ -72,3 +83,5 @@
     </div>
   </div>
 </div>
+
+<%end%>

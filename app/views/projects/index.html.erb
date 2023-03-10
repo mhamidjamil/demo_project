@@ -1,41 +1,12 @@
- <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 <%= render 'shared/page_title', title: "showing all projects" %>
 
-<% @projects.each do |project| %>
-  
-  <div class="row">
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-8 well">
-      
-      <h4>
-        <p>
-          <%= link_to project.name, project_path(project) %>
-        </p>
-      </h4>
-      
-      <p><%= truncate(project.description, length: 150) %></p>
-      
-      <p>
-        <span class="quiet">
-          <small>Created 
-            <%= time_ago_in_words(project.created_at) %> ago
-            <% if project.bugs.count!=0%>
-              <%if project.bugs.first.btype!="feature"%>
-              , bugs count:
-              <%else%>
-              , features required:
-              <%end%>
-            <%= project.bugs.count %>
-            <% end %>
-          </small>
-        </span>
-      </p> 
-    </div>
-  </div>
-  <hr />
+<%= render 'project', obj: @projects %>
+<%# <a href=/projects/new>Create Project</a> %>
+
+ <%# if current user is user.manager then he can create new project %>
+<% if current_user.manager? %>
+<p align ="center">
+<%= link_to "Create Project", new_project_path,class: "btn btn-primary btn-lg btn-xlarge" %>
+</p>
+<hr/>
 <% end %>
