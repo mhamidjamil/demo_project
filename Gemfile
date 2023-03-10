@@ -36,6 +36,8 @@ gem "jbuilder"
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate', '0.0.10'
 
+gem "devise"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
