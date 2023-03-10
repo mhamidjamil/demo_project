@@ -1,0 +1,74 @@
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<%= render 'shared/errors', obj: @bug %>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <%= form_for(@bug, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      <div class="form-group">
+
+    <%# bug title %>
+        <div class="control-label col-md-2">
+            <%= f.label :title %>
+        </div>
+        <div class="col-md-8">
+                <%= f.text_field :title, class: "form-control", placeholder: "Enter bug", autofocus: true %>
+        </div>
+    <%# bug description %>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                <%= f.label :description %>
+            </div>
+            <div class="col-md-8">
+                <%= f.text_area :description, class: "form-control", placeholder: "Enter bug description" %>
+            </div>
+        </div>
+    <%# bug status %>
+        <%#= form_with(model: @vendor, local: true) do |form| %>
+
+            <%#= f.label :btype %>
+            <%#= f.select :btype, options_for_select(Bug.btype.map {|key, value| [key.titleize, Bug.btype.key(value)]}, @bug.btype) %>
+            <%#= form.submit %>
+            <%#f.input :btype, :as => :select, :collection => Bug.btype.keys.to_a%>
+            <select id="bug_btype" name="bug[btype]">
+                <option value="feature">feature</option>
+                <option value="bug">bug</option>
+            </select>
+            <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>            
+
+         <%#= f.input :date, as: :datetime, label:'Launch Date & Time', class: "form-control form-control-lg", input_html: {value: params[:start_date]}, wrapper_html: { class: 'mb-3' }, html5: true %>
+        <div class="field">
+        <%# f.label :time %>
+        <%# f.datetime_select :time %>
+        <%#= f.deadline:time, :value => timesheet.user, :readonly => true %>
+        </div>
+        
+        <%# end %>
+    <%#datetime from user %>
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                <%#= f.label :datetime %>
+            </div>
+            <div class="col-md-8">
+                <%#= f.datetime_select :datetime, class: "form-control", placeholder: "Enter bug datetime" %>
+            </div>
+        </div>
+        
+
+      <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <%= f.submit(@bug.new_record? ? "Add Bug" : "Update Bug",class: "btn btn-primary btn-lg btn-xlarge") %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="col-md-4 col-md-offset-4 colormatch">
+      [ <%= link_to "Cancel request and return to bugs listing", bugs_path %> ]
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<%= render 'shared/page_title', title: "#{@bug.title}" %>
+<% if @bug.projects.count != 0 %>
+    
+    <div align="center">
+        <%= @bug.description %>
+    </div>
+
+    <%= render 'projects/project', obj: @bug_projects %>
+    <%# able to edit bugn %>
+    <%= link_to "Edit this bug",edit_bug_path(@bug),class: "btn btn-xs btn-warning" %>
+<% else %>
+    <h4 align="center">No Project yet!</h4>
+<% end %>

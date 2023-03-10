@@ -15,9 +15,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_145656) do
     t.string "title"
     t.text "description"
     t.datetime "deadline"
-    t.integer "btype", default: 1 # 1: bug, 2: feature
+    t.integer "btype", default: 1
     t.string "image"
-    t.integer "status", default: 0  # 0: new, 1: in progress, 2: done
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_145656) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "role", default: 0 # 0: dev, 1: qa, 2: manager
+    t.integer "role", default: 0
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

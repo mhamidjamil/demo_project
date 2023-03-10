@@ -15,6 +15,13 @@
     </p>
     <p class="center">
       <small><%= @project.user.name.capitalize %></small>
+      <%# bug name and link %>
+      <% if @project.bugs.any? %>
+        <p>
+          Bugs:
+          <%= render @project.bugs %>
+        </p>
+      <%end%>
       <div class="pull-right"><%= time_ago_in_words(@project.created_at) %> ago</div>
     </p>
   </div>

@@ -10,8 +10,7 @@
         <% if project.bugs.any? %>
             <p>
             Bugs: 
-            <%#= TODO: fix it after creating bug routes %>
-            <%#= FIXME: render project.bugs %>
+            <%= render project.bugs %>
             </p>
         <% end %>
 
