@@ -4,9 +4,15 @@
 <%# <a href=/projects/new>Create Project</a> %>
 
  <%# if current user is user.manager then he can create new project %>
-<% if current_user.manager? %>
-<p align ="center">
-<%= link_to "Create Project", new_project_path,class: "btn btn-primary btn-lg btn-xlarge" %>
-</p>
-<hr/>
-<% end %>
+<%if user_signed_in?%>
+
+    <p align ="center">
+    <%= link_to "Create Project", new_project_path,class: "btn btn-primary btn-lg btn-xlarge" %>
+    </p>
+    <hr/>
+<%else%>
+    <p align ="center">
+    <%= link_to "Create Project", new_project_path,class: "btn btn-primary btn-lg btn-xlarge" %>
+    </p>
+    <hr/>
+<%end%>

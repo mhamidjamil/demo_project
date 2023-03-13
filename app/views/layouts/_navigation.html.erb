@@ -10,9 +10,23 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=/projects>Projects</a>
-        </li>
+        <%if user_signed_in?%>
+          <%if current_user.manager?%>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Project
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href=/projects>View all project</a></li>
+                <li><a class="dropdown-item" href=/projects/new>Create new project</a></li>
+              </ul>
+            </li>
+          <%else%>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href=/projects>Projects</a>
+            </li>
+          <%end%>
+        <%end%>
         
         <%# <li class="nav-item">
           <a class="nav-link active" aria-current="page" href=/bugs>Bugs</a>
@@ -32,29 +46,6 @@
           <a class="nav-link active" aria-current="page" href=/users>Users</a>
         </li>
 
-        <%# <li class="nav-item">
-          <a class="nav-link" href=/chefs>chefs</a>
-        </li> %>
-        
-        <%# <li class="nav-item">
-          <a class="nav-link" href=/recipes/new>add recipe</a>
-        </li> %>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Status
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href=#>New</a></li>
-            <li><a class="dropdown-item" href=#>started</a></li>
-            <%# <li><hr class="dropdown-divider"></li> %>
-            <li><a class="dropdown-item" href=#>Completed</a></li>
-          </ul>
-        </li>
-
-        <%# <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=/ingredients>Ingredients</a>
-        </li> %>
         
         <li class="nav-item">
           <%# <a class="nav-link disabled">Disabled</a> %>
@@ -66,10 +57,11 @@
         <%# if user is logged in the show logout button %>
         <% if user_signed_in? %>
           <li class="nav-item">
-          <%#= link_to "Log out", destroy_user_session_path %>
+          <%#= link_to "Log out", destroy_user_session %>
           <%#= link_to "Sign out", sign_out_path, :method => :delete %>
           <%#= link_to('Logout', destroy_user_session_path, :method => 'delete')%>
-          <%= link_to "Logout", logout_path %>
+          <%# <a class="nav-link" href=/users/sign_out>logout</a> %>
+          <%#= link_to "Logout", destroy_user_session_path %>
           </li>
         <% else %>
           <li class="nav-item">

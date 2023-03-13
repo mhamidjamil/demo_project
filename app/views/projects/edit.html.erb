@@ -33,7 +33,11 @@
                 <%= f.label :name %>
             </div>
             <div class="col-md-8">
-                <%= f.text_field :name, class: "form-control",placeholder: "Name of project", autofocus: true %>
+              <%if @project.user.manager?%>
+                  <%= f.text_field :name, class: "form-control",placeholder: "Name of project", autofocus: true %>
+              <%else%>
+                  <%= f.text_field :name, class: "form-control",placeholder: "Name of project", autofocus: true,:readonly => true %>
+              <%end%>
             </div>
         </div>
         <div class="form-group">
@@ -41,14 +45,18 @@
                 <%= f.label :description %>
             </div>
             <div class="col-md-8">
+            <%if @project.user.manager?%>
                 <%= f.text_area :description, rows: 10, class: "form-control",placeholder: "Enter steps to create project" %>
+            <%else%>
+                <%= f.text_area :description, rows: 10, class: "form-control",placeholder: "Enter steps to create project",:readonly => true %> 
+            <%end%>
             </div>
         </div>
 
         <div class="form-group">
           <div class="row">
             <div class="col-md-offset-2 col-md-8">
-              <%if @project.user=="qa"%>
+              <%if @project.user.qa?%>
                 <%= f.collection_check_boxes :bug_ids, Bug.all, :id, :title do |cb| %>
                   <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
                 <% end %>

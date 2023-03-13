@@ -1,9 +1,14 @@
 <%= render 'shared/page_title', title: "Enter a new Bug" %>
-
-<%if current_user.qa?%>
-<%= render 'form' %>
+<%if user_signed_in?%>
+    <%if current_user.qa?%>
+    <%= render 'form' %>
+    <%else%>
+        <h3 align="center">
+            Only QA can create bugs or features
+        </h3>
+    <%end%>
 <%else%>
     <h3 align="center">
-        Only QA can create bugs or features
+        Please login to create bugs or features
     </h3>
 <%end%>
