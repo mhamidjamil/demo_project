@@ -1,3 +1,9 @@
 <%= render 'shared/page_title', title: "Edit Bug name" %>
 
-<%= render 'form' %>
+<%if user_signed_in?%>
+    <%if current_user.manager?%>
+        <h4 align="center">You are not allowed to edit this bug!</h4>
+    <%else%>
+        <%= render 'form' %>
+    <%end%>
+<%end%>

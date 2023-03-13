@@ -1,3 +1,4 @@
+
 <%= render 'shared/page_title', title: "#{@bug.title}" %>
 <% if @bug.projects.count != 0 %>
     
@@ -10,4 +11,11 @@
     <%= link_to "Edit this bug",edit_bug_path(@bug),class: "btn btn-xs btn-warning" %>
 <% else %>
     <h4 align="center">No Project yet!</h4>
+    <%# delete bug if qa want %>
+    <%if user_signed_in?%>
+        
+        <%#if current_user = @bug.projects[0].user.qa?%>
+        <%= link_to "Delete this bug",bug_path(@bug),method: :delete,data: {confirm: "Are you sure?"},class: "btn btn-xs btn-danger"%>
+        <%#end%>
+    <%end%>
 <% end %>
