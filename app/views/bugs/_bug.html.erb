@@ -22,4 +22,13 @@
         <%end%>
     <%end%>
 
+    <%# if deadline is present then display it too %>
+    <%if bug.deadline.present?%>
+        |
+        <%# <span class="badge badge-info">deadline</span> %>
+        deadline
+        <%= bug.deadline %>
+    <%end%>
+    
+
 </span>

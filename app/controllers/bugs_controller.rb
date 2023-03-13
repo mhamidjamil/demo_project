@@ -25,7 +25,7 @@ class BugsController < ApplicationController
     
     def update
       if @bug.update(bug_params)
-        flash[:success] = "Bug name was updated successfully"
+        flash[:success] = "Bug is updated successfully"
         redirect_to @bug
       else
         render 'edit'
@@ -45,7 +45,7 @@ class BugsController < ApplicationController
     private
     
       def bug_params
-        params.require(:bug).permit(:image, :title, :description, :btype, :status,:deadline ,:project_ids => [])
+        params.require(:bug).permit(:image, :title, :description, :btype, :status, :deadline ,:project_ids => [])
       end
       
       def set_bug

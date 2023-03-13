@@ -19,8 +19,8 @@
     <%# delete bug if qa want %>
     <%if user_signed_in?%>
         
-        <%#if current_user = @bug.projects[0].user.qa?%>
-        <%= link_to "Delete this bug",bug_path(@bug),method: :delete,data: {confirm: "Are you sure?"},class: "btn btn-xs btn-danger"%>
-        <%#end%>
+        <% if current_user = @bug.projects[0].user.qa? %>
+            <%= link_to "Delete this bug",bug_path(@bug),method: :delete,data: {confirm: "Are you sure?"},class: "btn btn-xs btn-danger"%>
+        <% end %>
     <%end%>
 <% end %>
