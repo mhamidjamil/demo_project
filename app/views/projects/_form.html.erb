@@ -35,10 +35,19 @@
               <%#if @project.user.manager?%>
                 <%#= select_tag "project_user", options_for_select(options) %> 
                 
-                <%= f.collection_check_boxes :user_ids, User.all, :id, :name do |cb| %>
+                <%= f.collection_check_boxes :user_id, User.qa, :id, :name do |cb| %>
+                  <%#if @user.role=="manager" %>
+                    <%# else %>
                   <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+                  <%#end%>
+                <% end %> |
+                <%= f.collection_check_boxes :user_id, User.developer, :id, :name do |cb| %>
+                  <%#if @user.role=="manager" %>
+                    <%# else %>
+                  <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+                  <%#end%>
                 <% end %>
-              
+
               <%# end %>
             </div>
           </div>

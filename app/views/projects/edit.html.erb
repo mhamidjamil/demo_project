@@ -55,6 +55,7 @@
         <div class="form-group">
           <div class="row">
             <div class="col-md-offset-2 col-md-8">
+            
               <%if @project.user.qa?%>
                 <%= f.collection_check_boxes :bug_ids, Bug.all, :id, :title do |cb| %>
                   <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>

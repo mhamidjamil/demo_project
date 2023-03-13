@@ -12,13 +12,12 @@
     
 
     <%= render 'projects/project', obj: @bug_projects %>
-    <%# able to edit bugn %>
+    <%# able to edit bug %>
     <%= link_to "Edit this bug",edit_bug_path(@bug),class: "btn btn-xs btn-warning" %>
 <% else %>
     <h4 align="center">No Project yet!</h4>
     <%# delete bug if qa want %>
-    <%if user_signed_in?%>
-        
+    <%if user_signed_in? && !current_user.manager?%>
         <% if current_user = @bug.projects[0].user.qa? %>
             <%= link_to "Delete this bug",bug_path(@bug),method: :delete,data: {confirm: "Are you sure?"},class: "btn btn-xs btn-danger"%>
         <% end %>

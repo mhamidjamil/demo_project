@@ -4,16 +4,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-  # user.manager can only create project
-  # user.manager can only delete project
-  # user.qa can only create bugs
-  # user.developer can only update bugs on his projects
-  # user.developer can only update his own profile
-
-    user ||= User.new # guest user (not logged in)
+    user ||= User.new
     if user.manager?
       can :manage, Projects
-      can :manage, Bugs
       can :manage, Users
     elsif user.qa?
       can :manage, Bugs
@@ -23,8 +16,6 @@ class Ability
     else
       can :read, :all
     end
-
-
   end
 
 end

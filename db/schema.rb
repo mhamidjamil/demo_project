@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_081820) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_165035) do
   create_table "bugs", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -39,6 +39,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_081820) do
   create_table "project_bugs", force: :cascade do |t|
     t.integer "project_id"
     t.integer "bug_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
