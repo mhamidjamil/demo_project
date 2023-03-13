@@ -1,10 +1,15 @@
 
 <%= render 'shared/page_title', title: "#{@bug.title}" %>
-<% if @bug.projects.count != 0 %>
-    
     <div align="center">
         <%= @bug.description %>
     </div>
+    <hr/>
+    <%if @bug.image?%>
+        <%= image_tag @bug.image.url, class: "bug-image" %>
+    <%end%>
+    <hr/>
+<% if @bug.projects.count != 0 %>
+    
 
     <%= render 'projects/project', obj: @bug_projects %>
     <%# able to edit bugn %>

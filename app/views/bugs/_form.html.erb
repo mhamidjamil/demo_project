@@ -11,69 +11,92 @@
             Only QA can create bugs or features
         </h3>
     <%else%>
-    <div class="row">
-    <div class="col-md-12">
+        <div class="row">
+        <div class="col-md-12">
 
-        <%= form_for(@bug, :html => {class: "form-horizontal", role: "form"}) do |f| %>
-        <div class="form-group">
-        <%if current_user.qa?%>
-        <%# bug title %>
-            <div class="control-label col-md-2">
-                <%= f.label :title %>
-            </div>
-            <div class="col-md-8">
-                    <%= f.text_field :title, class: "form-control", placeholder: "Enter bug", autofocus: true %>
-            </div>
-            
+            <%= form_for(@bug, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+            <div class="form-group">
+            <%if current_user.qa?%>
+
+            <%# image uploder %>
             <div class="form-group">
                 <div class="control-label col-md-2">
-                    <%= f.label :description %>
+                    <%= f.label :image %>
                 </div>
                 <div class="col-md-8">
-                    <%= f.text_area :description, class: "form-control", placeholder: "Enter bug description" %>
+                    <%= f.file_field :image, class: "form-control", placeholder: "Enter bug image" %>
+                    <% if @bug.image?%>
+                        <%= f.check_box :remove_image %>
+                        <%= f.label :remove_image, "Remove image" %>
+                    <%end%>
                 </div>
             </div>
-            <select id="bug_btype" name="bug[btype]">
-                <option value="feature">feature</option>
-                <option value="bug">bug</option>
-            </select>
-            <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>            
-            <%end%>
-            <%#= f.input :date, as: :datetime, label:'Launch Date & Time', class: "form-control form-control-lg", input_html: {value: params[:start_date]}, wrapper_html: { class: 'mb-3' }, html5: true %>
-            <select id="bug_status" name="bug[status]">
-                <option value=0>new</option>
-                <option value=1>started</option>
-                <%if @bug.btype == 1%>
-                    <option value=2>completed</option>
-                <%else%>
-                    <option value=2>end</option>
+
+            <%# bug title %>
+                <div class="control-label col-md-2">
+                    <%= f.label :title %>
+                </div>
+                <div class="col-md-8">
+                        <%= f.text_field :title, class: "form-control", placeholder: "Enter bug", autofocus: true %>
+                </div>
+                
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <%= f.label :description %>
+                    </div>
+                    <div class="col-md-8">
+                        <%= f.text_area :description, class: "form-control", placeholder: "Enter bug description" %>
+                    </div>
+                </div>
+                <select id="bug_btype" name="bug[btype]">
+                    <option value="feature">feature</option>
+                    <option value="bug">bug</option>
+                </select>
+                <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>            
                 <%end%>
-            </select>
-            <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>   
-            <div class="form-group">
+                <%#= f.input :date, as: :datetime, label:'Launch Date & Time', class: "form-control form-control-lg", input_html: {value: params[:start_date]}, wrapper_html: { class: 'mb-3' }, html5: true %>
+                <select id="bug_status" name="bug[status]">
+                    <option value=0>new</option>
+                    <option value=1>started</option>
+                    <%if @bug.btype == 1%>
+                        <option value=2>completed</option>
+                    <%else%>
+                        <option value=2>end</option>
+                    <%end%>
+                </select>
+                <%f.select :btype, Bug.btypes.map { |key, value| [key.humanize, key] }%>   
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <%#= f.label :datetime %>
+                    </div>
+                    <div class="col-md-8">
+                        <%#= f.datetime_select :datetime, class: "form-control", placeholder: "Enter bug datetime" %>
+                    </div>
+                </div>
+                
+                <%# taking datetime from user input %>
                 <div class="control-label col-md-2">
-                    <%#= f.label :datetime %>
+                    <%= f.label :deadline %>
                 </div>
                 <div class="col-md-8">
-                    <%#= f.datetime_select :datetime, class: "form-control", placeholder: "Enter bug datetime" %>
+                        <%= f.datetime_select :deadline, class: "form-control", placeholder: "Enter date", autofocus: true %>
                 </div>
-            </div>
-            
-            <hr/>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <%= f.submit(@bug.new_record? ? "Add Bug" : "Update Bug",class: "btn btn-primary btn-lg btn-xlarge") %>
-                    <%#= button_to "Delete", bug_path(@bug),method: :delete,data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-xs btn-danger" %>
-                </div>
-            </div>
-        <% end %>
 
-        <div class="col-md-4 col-md-offset-4 colormatch">
-        [ <%= link_to "Cancel request and return to bugs listing", bugs_path %> ]
+
+                <hr/>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <%= f.submit(@bug.new_record? ? "Add Bug" : "Update Bug",class: "btn btn-primary btn-lg btn-xlarge") %>
+                        <%#= button_to "Delete", bug_path(@bug),method: :delete,data: { confirm: "Are you sure you want to delete this bug?" },class: "btn btn-xs btn-danger" %>
+                    </div>
+                </div>
+            <% end %>
+
+            <div class="col-md-4 col-md-offset-4 colormatch">
+            [ <%= link_to "Cancel request and return to bugs listing", bugs_path %> ]
+            </div>
         </div>
-    </div>
-    </div>
-
+        </div>
     <%end%>
 <%else%>
     <h3 align="center">

@@ -41,11 +41,11 @@ class BugsController < ApplicationController
       flash[:success] = "Bug deleted successfully"
       redirect_to bugs_path
     end
-    
+
     private
     
       def bug_params
-        params.require(:bug).permit(:title, :description, :btype, :status, :project_ids => [])
+        params.require(:bug).permit(:image, :title, :description, :btype, :status,:deadline ,:project_ids => [])
       end
       
       def set_bug

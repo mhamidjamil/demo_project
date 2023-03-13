@@ -34,6 +34,7 @@ gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
+gem 'carrierwave', '>= 3.0.0.beta', '< 4.0'
 
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate', '0.0.10'

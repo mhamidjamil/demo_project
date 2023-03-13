@@ -12,4 +12,6 @@ class Bug < ApplicationRecord
     has_many :project_bugs
     has_many :projects, through: :project_bugs
     default_scope -> { order(updated_at: :desc)}
+
+    mount_uploader :image, ImageUploader 
 end
