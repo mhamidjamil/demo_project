@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:edit, :update, :show, :destroy]
+    before_action :set_user, only: [:edit, :update, :show]
 
     def index
         @users = User.all
@@ -38,10 +38,13 @@ class UsersController < ApplicationController
     
     def destroy
     # if !@user.admin?
-        @user.destroy 
-        flash[:danger] = "User and all associated Projects have been deleted"
-        redirect_to users_path
-    # end
+        if user_signed_in? 
+            @user.destroy 
+            flash[:danger] = "User and all associated Projects have been deleted"
+            redirect_to users_path
+        else
+            flash[:danger] = "You need to sign in first"
+        end
     end
 
     private

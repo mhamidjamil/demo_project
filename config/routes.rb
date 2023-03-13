@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
+  devise_for :views
   root 'pages#home'
 
+  # delete '/users/sign_out', to: "sessions#destroy"
+  # delete '/sign_out', to: "sessions#destroy"
+  # devise_for :users do
+    get 'logout' => 'devise/sessions#destroy'
+  # end
+
+  devise_for :users
   #project routes:
   # get 'projects/new', to: 'projects#new'
   resources :projects
-  resources :users, except: [:new]
+  resources :users, except: [:new, :destroy, :DELETE]
   resources :bugs
-  
-  get '/login', to: 'sessions#new'
-  post '/login', to: "sessions#create"
-  delete '/logout', to: "sessions#destroy"
-
-  get '/signup', to: 'users#new'
-
 
 end

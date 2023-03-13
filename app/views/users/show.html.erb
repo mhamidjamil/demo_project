@@ -2,7 +2,11 @@
 <% if @user.projects.count != 0 %>
 
     <h4 align="center">
-        <%= @user.name %>'s Projects
+        <%if (@user==current_user ||@user == @user.manager?)%>
+          <%= link_to @user.name.capitalize, edit_user_path(@user) %>
+        <%else%>
+        <%= @user.name.capitalize %>'s Projects
+        <%end%>
     </h4>
 
     <%= render 'projects/project', obj: @user.projects %>

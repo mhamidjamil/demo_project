@@ -1,3 +1,25 @@
 <span class="badge">
-<%= link_to bug.title,bug_path(bug) %>
+<%= link_to bug.title,edit_bug_path(bug) %>
+</span>
+
+<span class="quiet">
+    |
+    <%if bug.status<2%>
+        <%if bug.status==0%>
+        <%# <span class="badge badge-danger">new</span> %>
+        new
+        <%else%>
+        <%# <span class="badge badge-warning">started</span> %>
+        started
+        <%end%>
+    <%else%>
+        <%if bug.btype==1%>
+        <%# <span class="badge badge-danger">completed</span> %>
+        completed
+        <%else%>
+        <%# <span class="badge badge-warning">resolved</span> %>
+        resolved
+        <%end%>
+    <%end%>
+
 </span>
